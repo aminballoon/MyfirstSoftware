@@ -1,2 +1,2 @@
 # MyfirstSoftware
-KUY rai sus
+git for software dev G1
