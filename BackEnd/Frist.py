@@ -1,2 +1,2 @@
 print("TsBeNz test")
-Print("Sirawit")
+print("Sirawit")
