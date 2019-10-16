@@ -1,2 +1,0 @@
-print("thansak")
-print("new")
