@@ -2,7 +2,7 @@
 # https://home.kku.ac.th/nikom/prob_distribution_nk2557.pdf
 # Cerate By TsBeNz 
 
-from firebase import firebase
+import firebase_admin
 
 class time_avg:
     def __init__(self,type_input=""):
