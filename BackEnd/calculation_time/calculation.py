@@ -12,9 +12,9 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 def serial_read():
-    ser = serial.Serial('com20', 115200, timeout=0.001)
+    ser = serial.Serial('com22', 115200, timeout=0.001)
     while True:
-        reading = str(ser.readline())
+        reading = str(ser.readline()) 
         if (reading == "b''"):
             continue
         if (reading[2]=='2'):
@@ -48,7 +48,6 @@ def serial_read():
             print(str(new_queue) + " ticket button 3 " + new_id)
 
         elif(reading[2]=='1'):
-            ""
             pass
 
 
