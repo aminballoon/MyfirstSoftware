@@ -17,10 +17,6 @@ color_gray = '#363636'
 color_blue = '#A8A7A7'
 color_pink_white = '#E84A5F'
 Window.configure(background = color_gray)
-var1 = StringVar()
-var1.set('Start')
-var2 = StringVar()
-var2.set('Start')
 Show_now = StringVar()
 Show_pass_1 = StringVar()
 Show_pass_2 = StringVar()
