@@ -76,30 +76,31 @@ Row5_Queue = Label(Window, textvariable = Show_pass_4, font=myFont, background= 
 Row5_Counter = Label(Window, textvariable = Show_counter_pass4, font=myFont, background= color_gray,
                  foreground=color_pink_white).place(x=set_x+plus_x, y=set_y+(4*plus_y))
 
-def ui(inputs):
-    global Round
-    Show_now.set(Set_Queue[Round])
-    Show_counter_now.set(Set_Counter[Round])
-    Show_pass_1.set(Past_Queue[0])
-    Show_counter_pass1.set(Past_Counter[0])
-    Show_pass_2.set(Past_Queue[1])
-    Show_counter_pass2.set(Past_Counter[1])
-    Show_pass_3.set(Past_Queue[2])
-    Show_counter_pass3.set(Past_Counter[2])
-    Show_pass_4.set(Past_Queue[3])
-    Show_counter_pass4.set(Past_Counter[3])
-    if Set_Queue[Round] != Past_Queue[0]:
-        Past_Queue[3] = Past_Queue[2]
-        Past_Queue[2] = Past_Queue[1]
-        Past_Queue[1] = Past_Queue[0]
-        Past_Queue[0] = Set_Queue[Round]
+def ui(Queue_input,Counter_input):
+    global Set_Counter,Set_Queue
+    Set_Counter.append(Counter_input)
+    Set_Queue.append(Queue_input)
+    Set_Counter.pop(0)
+    Set_Queue.pop(0)
+    print(Set_Counter)
+    Show_now.set(Set_Queue[4])
+    Show_counter_now.set(Set_Counter[4])
+    Show_pass_1.set(Past_Queue[3])
+    Show_counter_pass1.set(Past_Counter[3])
+    Show_pass_2.set(Past_Queue[2])
+    Show_counter_pass2.set(Past_Counter[2])
+    Show_pass_3.set(Past_Queue[1])
+    Show_counter_pass3.set(Past_Counter[1])
+    Show_pass_4.set(Past_Queue[0])
+    Show_counter_pass4.set(Past_Counter[0])
 
-        Past_Counter[3] = Past_Counter[2]
-        Past_Counter[2] = Past_Counter[1]
-        Past_Counter[1] = Past_Counter[0]
-        Past_Counter[0] = Set_Counter[Round]
-    if Round == 4:
-        Round = -1
-    Round += inputs
+    Past_Queue[0] = Past_Queue[1]
+    Past_Queue[1] = Past_Queue[2]
+    Past_Queue[2] = Past_Queue[3]
+    Past_Queue[3] = Set_Queue[4]
+    Past_Counter[0] = Past_Counter[1]
+    Past_Counter[1] = Past_Counter[2]
+    Past_Counter[2] = Past_Counter[3]
+    Past_Counter[3] = Set_Counter[4]
     Window.update()
     time.sleep(1)
