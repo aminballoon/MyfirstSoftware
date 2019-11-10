@@ -2,6 +2,7 @@
 import serial
 from ticket import ticket
 from counter import counter
+from UI import ui
 
 sw_object = {}
 
@@ -45,4 +46,5 @@ def setting():
 
 if __name__ == '__main__':
     setting()
+    ui("-","-")
     serial_read(input("Enter your serial port name (EX : com6) : "))

@@ -22,6 +22,7 @@ class ticket:
         while(len(buffer)<3):
             buffer = ("0" + buffer)
         db.collection('BangMod').document("NextQueue").update({self.counter_type: (str(self.counter_type[-1:]).upper()+str(buffer))})
+        db.collection('BangMod').document("Data").update({(str(self.counter_type[-1:]).upper()+str(buffer)):new_id})
         print(str(new_queue) + " ticket button " +self.input + " " + new_id)
 
 if __name__ == '__main__':
