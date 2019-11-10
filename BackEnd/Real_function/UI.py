@@ -82,7 +82,6 @@ def ui(Queue_input,Counter_input):
     Set_Queue.append(Queue_input)
     Set_Counter.pop(0)
     Set_Queue.pop(0)
-    print(Set_Counter)
     Show_now.set(Set_Queue[4])
     Show_counter_now.set(Set_Counter[4])
     Show_pass_1.set(Past_Queue[3])
@@ -93,7 +92,6 @@ def ui(Queue_input,Counter_input):
     Show_counter_pass3.set(Past_Counter[1])
     Show_pass_4.set(Past_Queue[0])
     Show_counter_pass4.set(Past_Counter[0])
-
     Past_Queue[0] = Past_Queue[1]
     Past_Queue[1] = Past_Queue[2]
     Past_Queue[2] = Past_Queue[3]
@@ -103,4 +101,3 @@ def ui(Queue_input,Counter_input):
     Past_Counter[2] = Past_Counter[3]
     Past_Counter[3] = Set_Counter[4]
     Window.update()
-    time.sleep(1)

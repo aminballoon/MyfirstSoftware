@@ -52,7 +52,10 @@ def start_up():
     return input_comport_name
 
 if __name__ == '__main__':
-    com_port = start_up()
-    setting()
-    print(sw_object)
-    serial_read(com_port)
+    try:
+        com_port = start_up()
+        setting()
+        print(sw_object)
+        serial_read(com_port)
+    except KeyboardInterrupt:
+        print("\n\nShutdows ...\n\n")

@@ -7,4 +7,4 @@ class counter:
         self.input = sw_data
     def input_even(self):
         print("counter next button from : " + self.input)
-        ui(str(self.input+str(int(timeit.default_timer()))),str(self.input)+"00")
+        ui(str(self.input+str(int(timeit.default_timer()))),str(self.input))
