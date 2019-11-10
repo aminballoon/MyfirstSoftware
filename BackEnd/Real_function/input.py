@@ -58,7 +58,7 @@ def calculation_time():
     db.collection('Static_Data').document('Avg_Time').update({"X": 123})
 
 def setting():
-    infile = open("C:/github/MyfirstSoftware/BackEnd/calculation_time/setting.txt", encoding="utf8")
+    infile = open("C:/github/MyfirstSoftware/BackEnd/Real_function/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     for line in infile:
         if (line == "\n"):

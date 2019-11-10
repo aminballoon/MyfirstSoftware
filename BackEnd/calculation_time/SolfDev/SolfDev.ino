@@ -13,37 +13,37 @@ void setup() {
 
 void loop() {
   if (!digitalRead(2)) {
-    Serial.println("C2");
+    Serial.print("C2");
     while (!digitalRead(2)) {
       delay(30);
     }
   }
   if (!digitalRead(3)) {
-    Serial.println("C1");
+    Serial.print("C1");
     while (!digitalRead(3)) {
       delay(30);
     }
   }
   if (!digitalRead(4)) {
-    Serial.println("T2");
+    Serial.print("T2");
     while (!digitalRead(4)) {
       delay(30);
     }
   }
   if (!digitalRead(5)) {
-    Serial.println("T1");
+    Serial.print("T1");
     while (!digitalRead(5)) {
       delay(30);
     }
   }
   if (!digitalRead(6)) {
-    Serial.println("C5");
+    Serial.print("C5");
     while (!digitalRead(6)) {
       delay(30);
     }
   }
   if (!digitalRead(15)) {
-    Serial.println("T1");
+    Serial.print("T1");
     while (!digitalRead(15)) {
       delay(30);
     }
@@ -55,13 +55,13 @@ void loop() {
     }
   }
   if (!digitalRead(16)) {
-    Serial.println("T3");
+    Serial.print("T3");
     while (!digitalRead(16)) {
       delay(30);
     }
   }
   if (!digitalRead(10)) {
-    Serial.println("T4");
+    Serial.print("T4");
     while (!digitalRead(10)) {
       delay(30);
     }
