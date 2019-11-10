@@ -12,7 +12,7 @@ Past_Queue = ['-','-','-','-']
 Past_Counter = ['-','-','-','-']
 Window = Tk()
 Window.title("Bank สาขา บางมด")
-Window.geometry('1600x900')
+Window.geometry('1920x1080')
 color_gray = '#363636'
 color_blue = '#A8A7A7'
 color_pink_white = '#E84A5F'
@@ -37,7 +37,7 @@ Show_counter_pass2.set('-')
 Show_counter_pass3.set('-')
 Show_counter_pass4.set('-')
 set_x = 450
-set_y = 150
+set_y = 130
 plus_x = 500
 plus_y = 140
 myFont = Font(family=font[59], size=60)
@@ -45,11 +45,6 @@ Font_head = Font(family=font[59], size=70)
 photo = PhotoImage(file = "Untitled-1-Recovered.gif")
 backgrand = Label(Window, image=photo)
 backgrand.pack()
-
-# text = Text(Window)
-# text.insert(INSERT, "Hello.....")
-# text.insert(END, "Bye Bye.....")
-# text.pack()
 con = Label(Window, text = 'Queue', font=Font_head,background= color_gray,
                  foreground=color_blue).place(x=420, y=0)
 con1 = Label(Window, text = 'Counter', font=Font_head,background= color_gray,
@@ -81,7 +76,6 @@ Row5_Counter = Label(Window, textvariable = Show_counter_pass4, font=myFont, bac
                  foreground=color_pink_white).place(x=set_x+plus_x, y=set_y+(4*plus_y))
 
 while(1):
-    sleep(1)
     Show_now.set(Set_Queue[Round])
     Show_counter_now.set(Set_Counter[Round])
     Show_pass_1.set(Past_Queue[0])
@@ -106,20 +100,3 @@ while(1):
         Round = -1
     Round += 1
     Window.update()
-    # Show_counter_2.set(testy)
-    # Show_counter_3.set(testy)
-    # Show_counter_4.set(testy)
-    # Show_counter_5.set(testy)
-    # testy += '0'
-    # if num1 == 8:
-    #     num1 = -1
-    # if num2 == 8:
-    #     num2 = 0
-    # if num2 == 8:
-    #     num2 = 1
-    # if num2 == 8:
-    #     num2 = 2
-    # num1 += 1
-    # num2 += 1
-    # num3 += 1
-    # num4 += 1
