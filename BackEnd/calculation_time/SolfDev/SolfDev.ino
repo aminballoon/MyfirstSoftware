@@ -13,25 +13,25 @@ void setup() {
 
 void loop() {
   if (!digitalRead(2)) {
-    Serial.println("C1");
+    Serial.println("C2");
     while (!digitalRead(2)) {
       delay(30);
     }
   }
   if (!digitalRead(3)) {
-    Serial.println("C2");
+    Serial.println("C1");
     while (!digitalRead(3)) {
       delay(30);
     }
   }
   if (!digitalRead(4)) {
-    Serial.println("C3");
+    Serial.println("T2");
     while (!digitalRead(4)) {
       delay(30);
     }
   }
   if (!digitalRead(5)) {
-    Serial.println("C6");
+    Serial.println("T1");
     while (!digitalRead(5)) {
       delay(30);
     }
