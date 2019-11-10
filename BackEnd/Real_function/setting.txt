@@ -1,13 +1,13 @@
-ticket_z T4 z
-ticket_w T1 w
-ticket_x T2 x
-ticket_y T3 y
-counter_type a (z)
-counter_type b (w,x,y)
-counter_1 C1 a
-counter_2 C2 a
-counter_3 C3 a
-counter_4 C4 b
-counter_5 C5 b
-counter_6 C6 b
-counter_7 C7 b
+countertype counter_a ticket_a
+countertype counter_b ticket_b,ticket_c,ticket_d
+ticket T1 ticket_a
+ticket T2 ticket_b
+ticket T3 ticket_c
+ticket T4 ticket_d
+counter C1 counter_a counter1
+counter C2 counter_a counter2
+counter C3 counter_a counter3
+counter C4 counter_b counter4
+counter C5 counter_b counter5
+counter C6 counter_b counter6
+counter C7 counter_b counter7
