@@ -1,7 +1,4 @@
 # Cerate By TsBeNz
- 
-import timeit
-import time
 import serial
 from ticket import ticket
 from counter import counter
@@ -45,17 +42,7 @@ def setting():
         elif (data[0] == "counter"):
             t = counter(name=data[3],counter_type= data[2] , sw_data= data[1])
             sw_object[data[1]] = t
-        
-
-def start_up():
-    input_comport_name = input("Enter your serial port name (EX : com6) : ")
-    return input_comport_name
 
 if __name__ == '__main__':
-    try:
-        com_port = start_up()
-        setting()
-        print(sw_object)
-        serial_read(com_port)
-    except KeyboardInterrupt:
-        print("\n\nShutdows ...\n\n")
+    setting()
+    serial_read(input("Enter your serial port name (EX : com6) : "))
