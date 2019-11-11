@@ -33,6 +33,8 @@ db.collection(saka).document(u'QueuePush').collection(ticketd).document().set({}
 
 db.collection(saka).document(u'Time').set({})
 
+print("JNNIE")
+
 
 
 
