@@ -12,6 +12,8 @@ class counter:
         if (self.debug == 1):
             print("counter next button from : " + self.input)
         data = db.collection('BangMod').document('LastQueue').get().to_dict()
+        city_ref = db.collection('BangMod').document('Data')
+        city_ref.update({data[self.type]: firestore.DELETE_FIELD})
         buffer = str(int((data[self.type])[1:])+1)
         while(len(buffer)<3):
             buffer = ("0" + buffer)
