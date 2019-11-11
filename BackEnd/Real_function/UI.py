@@ -9,8 +9,8 @@ Set_Queue = ['A001','A002','A003','A004','A005']
 Set_Counter = ['1','2','3','4','5']
 Now_Queue = "A001"
 Now_Counter = "Counter: 1"
-Past_Queue = ['-','-','-','-']
-Past_Counter = ['-','-','-','-']
+Past_Queue = ['','','','','']
+Past_Counter = ['','','','','']
 Window = Tk()
 Window.title("Bank สาขา บางมด")
 Window.geometry('1920x1080')
@@ -28,28 +28,28 @@ Show_counter_pass1 = StringVar()
 Show_counter_pass2 = StringVar()
 Show_counter_pass3 = StringVar()
 Show_counter_pass4 = StringVar()
-Show_now.set('-')
-Show_pass_1.set('-')
-Show_pass_2.set('-')
-Show_pass_3.set('-')
-Show_pass_4.set('-')
-Show_counter_pass1.set('-')
-Show_counter_pass2.set('-')
-Show_counter_pass3.set('-')
-Show_counter_pass4.set('-')
-set_x = 450
-set_y = 130
-plus_x = 500
-plus_y = 140
+Show_now.set('')
+Show_pass_1.set('')
+Show_pass_2.set('')
+Show_pass_3.set('')
+Show_pass_4.set('')
+Show_counter_pass1.set('')
+Show_counter_pass2.set('')
+Show_counter_pass3.set('')
+Show_counter_pass4.set('')
+set_x = 550
+set_y = 220
+plus_x = 710
+plus_y = 160
 myFont = Font(family=font[59], size=60)
 Font_head = Font(family=font[59], size=70)
-photo = PhotoImage(file = "C:/github/MyfirstSoftware/FrontEnd/Display/Untitled-1-Recovered.gif")
+photo = PhotoImage(file = "C:/github/MyfirstSoftware/FrontEnd/Display/Untitled-1.gif")
 backgrand = Label(Window, image=photo)
 backgrand.pack()
 con = Label(Window, text = 'Queue', font=Font_head,background= color_gray,
-                 foreground=color_blue).place(x=420, y=0)
+                 foreground=color_blue).place(x=500, y=40)
 con1 = Label(Window, text = 'Counter', font=Font_head,background= color_gray,
-                 foreground=color_blue).place(x=830, y=0)
+                 foreground=color_blue).place(x=1130, y=40)
 
 Row1_Queue = Label(Window, textvariable = Show_now, font=myFont, background= color_gray,
                  foreground=color_pink_white).place(x=set_x, y=set_y)

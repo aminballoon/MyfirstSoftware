@@ -15,8 +15,8 @@ class counter:
         buffer = str(int((data[self.type])[1:])+1)
         while(len(buffer)<3):
             buffer = ("0" + buffer)
+        ui((str(self.type[-1:]).upper()+str(buffer)),self.name[-1:])
         db.collection('BangMod').document("LastQueue").update({self.type : (str(self.type[-1:]).upper()+str(buffer))})
-        ui(str(self.input+str(int(timeit.default_timer()))),str(self.input))
 
 
 if __name__ == '__main__':

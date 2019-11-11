@@ -7,7 +7,7 @@ sw_object = {}
 
 def serial_read(serial_port="com22",debug=0):
     ser = serial.Serial(serial_port, 115200, timeout=0.001)
-    ui("-","-")
+    ui("","")
     while True:
         reading = str(ser.readline()) 
         reading = reading.replace("b'","")
