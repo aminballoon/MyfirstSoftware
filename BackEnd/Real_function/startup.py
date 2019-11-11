@@ -1,4 +1,3 @@
-# Cerate By TsBeNz
 import serial
 from ticket import ticket
 from counter import counter
@@ -6,21 +5,22 @@ from UI import ui
 
 sw_object = {}
 
-def serial_read(serial_port="com22"):
+def serial_read(serial_port="com22",debug=0):
     ser = serial.Serial(serial_port, 115200, timeout=0.001)
+    ui("-","-")
     while True:
         reading = str(ser.readline()) 
         reading = reading.replace("b'","")
         reading = reading.replace("'","")
-        if (reading == "b''"):
-            continue
+        if (debug == 2):
+            print(reading)
         if(reading in sw_object):
             sw_object[reading].input_even()
 
 def calculation_time():
     pass
 
-def setting():
+def setting(debug = 0):
     infile = open("C:/github/MyfirstSoftware/BackEnd/Real_function/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     counter_typee = {}
@@ -41,10 +41,12 @@ def setting():
             sw_object[data[1]] = t
         
         elif (data[0] == "counter"):
-            t = counter(name=data[3],counter_type= data[2] , sw_data= data[1])
+            t = counter(name=data[3],counter_type= data[2] , sw_data= data[1],debug = debug)
             sw_object[data[1]] = t
+    if (debug == 2):
+        print(sw_object)
 
 if __name__ == '__main__':
-    setting()
-    ui("-","-")
-    serial_read(input("Enter your serial port name (EX : com6) : "))
+    debug = int(input("Debug LV (0-2) : "))
+    setting(debug)
+    serial_read(input("Enter your serial port name (EX : com6) : "),debug)
