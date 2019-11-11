@@ -5,7 +5,7 @@ ticket T2 ticket_b
 ticket T3 ticket_c
 ticket T4 ticket_d
 counter C1 counter_a counter1
-counter C2 counter_a counter2
+counter C2 counter_b counter2
 counter C3 counter_a counter3
 counter C4 counter_b counter4
 counter C5 counter_b counter5

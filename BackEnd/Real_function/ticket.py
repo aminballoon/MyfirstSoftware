@@ -1,12 +1,4 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-
-cred = credentials.Certificate('C:/Users/thans/google-services.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
-
-
+from env import *
 class ticket:
     def __init__(self,name="",ticket_type="",counter_type="",sw_input=""):
         self.name = name
@@ -28,12 +20,3 @@ class ticket:
 if __name__ == '__main__':
     t = ticket(name="test",ticket_type="ticket_a",sw_input="T1",counter_type="counter_a")
     t.input_even()
-
-    # start = timeit.default_timer()
-    # calculation_time()
-    # stopp = timeit.default_timer()
-    # print("\nTime ", stopp - start)
-    # data_new = db.collection('BangMod').document('QueuePush').collection('Type_A').document('CakNpX3lVx4jyHapDRjQ').get().to_dict()
-    # print(data_new)
-    # stop = timeit.default_timer()
-    # print("\nTime ", stop - stopp)
