@@ -10,7 +10,6 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
-
 # doc_ref = db.collection(u'Queue Counter Type A').document(u'Test')
 # doc_ref.set({
 #     u'number': 0

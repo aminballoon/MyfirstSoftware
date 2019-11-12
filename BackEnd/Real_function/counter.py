@@ -3,24 +3,24 @@ from UI import ui
 from env import *
 
 class counter:
-    def __init__(self,name = "",counter_type = "" ,sw_data = "",debug=0):
+    def __init__(self,name = "",counter_type = "" ,sw_data = "",debug = False ,Branchinput = 'BangMod'):
         self.name = name
         self.type = counter_type
         self.input = sw_data
         self.debug = debug
+        self.Branch = Branchinput
     def input_even(self):
-        if (self.debug == 1):
+        if (self.debug):
             print("counter next button from : " + self.input)
-        data = db.collection('BangMod').document('LastQueue').get().to_dict()
-        city_ref = db.collection('BangMod').document('Data')
-        city_ref.update({data[self.type]: firestore.DELETE_FIELD})
+        data = db.collection(self.Branch).document('LastQueue').get().to_dict()
+        db.collection(self.Branch).document('Data').update({data[self.type]: firestore.DELETE_FIELD})
         buffer = str(int((data[self.type])[1:])+1)
         while(len(buffer)<3):
             buffer = ("0" + buffer)
         ui((str(self.type[-1:]).upper()+str(buffer)),self.name[-1:])
-        db.collection('BangMod').document("LastQueue").update({self.type : (str(self.type[-1:]).upper()+str(buffer))})
+        db.collection(self.Branch).document("LastQueue").update({self.type : (str(self.type[-1:]).upper()+str(buffer))})
 
 
 if __name__ == '__main__':
-    t = counter(name="test",counter_type="counter_a",sw_data="C1",debug = 0)
+    t = counter(name="test",counter_type="counter_a",sw_data="C1",debug = False)
     t.input_even()
