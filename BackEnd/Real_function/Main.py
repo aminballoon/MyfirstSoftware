@@ -6,5 +6,5 @@ if __name__ == '__main__':
         serial_read(input("Enter your serial port name (EX : com6) : "))
         # serial_read("com22")
     except KeyboardInterrupt:
-        print("\n\n\n\nShutdown ...\n\n")
+        print("\n\n\n\nShutdown ...\n\n\n\n")
         # something before end this program

@@ -27,8 +27,8 @@ def serial_read(serial_port="com22",debug=False):
 def setting(debug = False):
     database = False
     global Branch
-    if (input("setup new Branch? (y or N)").lower() == 'y'):
-        print("database clear")
+    if (input("Setup new Branch? (y or N)").lower() == 'y'):
+        print("Setup new Branch database wait ... ")
         database = True
     infile = open("C:/github/MyfirstSoftware/BackEnd/Real_function/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
@@ -53,10 +53,12 @@ def setting(debug = False):
         elif (data[0] == "countertype"):
             counter_types = data[2].split(",")
             counter_name_setup = data[1]
-            db.collection(Branch).document('LastQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "000"})
-            db.collection(Branch).document('NextQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "001"})
+            if(database):
+                db.collection(Branch).document('LastQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "000"})
+                db.collection(Branch).document('NextQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "001"})
             for i in counter_types:
-                db.collection(Branch).document(u'QueuePush').collection(u''+str(i)).document(u'frist').set({})
+                if(database):
+                    db.collection(Branch).document(u'QueuePush').collection(u''+str(i)).document(u'frist').set({})
                 counter_typee[i] = data[1]
         
         elif (data[0] == "ticket"): 
@@ -69,7 +71,7 @@ def setting(debug = False):
 
     if (debug):
         print(sw_object)
-        print()
+        print(counter_typee)
 
 if __name__ == '__main__':
     if (input("debug? (y or N)").lower() == 'y'):

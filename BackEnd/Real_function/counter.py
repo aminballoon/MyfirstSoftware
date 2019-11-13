@@ -13,12 +13,16 @@ class counter:
         if (self.debug):
             print("counter next button from : " + self.input)
         data = db.collection(self.Branch).document('LastQueue').get().to_dict()
-        db.collection(self.Branch).document('Data').update({data[self.type]: firestore.DELETE_FIELD})
+        data_queue = db.collection(self.Branch).document('Data').get().to_dict()
+        print(data)
+        if(data[self.type] in data_queue):
+            db.collection(self.Branch).document('Data').update({data[self.type]: firestore.DELETE_FIELD})
         buffer = str(int((data[self.type])[1:])+1)
         while(len(buffer)<3):
             buffer = ("0" + buffer)
-        ui((str(self.type[-1:]).upper()+str(buffer)),self.name[-1:])
-        db.collection(self.Branch).document("LastQueue").update({self.type : (str(self.type[-1:]).upper()+str(buffer))})
+        if((str(self.type[-1:]).upper()+str(buffer)) in data_queue):
+            ui((str(self.type[-1:]).upper()+str(buffer)),self.name[-1:])
+            db.collection(self.Branch).document("LastQueue").update({self.type : (str(self.type[-1:]).upper()+str(buffer))})
 
 
 if __name__ == '__main__':
