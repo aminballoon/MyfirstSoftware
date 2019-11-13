@@ -10,7 +10,6 @@ import time
 import timeit
 
 sw_object = {}
-debug = False
 Branch = ""
 
 def serial_read(serial_port="com22",debug=False):
@@ -77,6 +76,7 @@ def setting(debug = False):
         print(counter_typee)
 
 if __name__ == '__main__':
+    debug = False
     if (input("debug? (y or N)").lower() == 'y'):
         print("program is run with debug mode")
         debug = True

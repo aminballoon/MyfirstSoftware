@@ -2,6 +2,7 @@ from startup import setting
 from startup import serial_read
 if __name__ == '__main__':
     try:
+        debug = False
         if (input("debug? (y or N)").lower() == 'y'):
             print("program is run with debug mode")
             debug = True
