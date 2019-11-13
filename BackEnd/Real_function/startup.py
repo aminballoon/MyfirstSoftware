@@ -7,6 +7,7 @@ from ticket import ticket
 from counter import counter
 from UI import ui
 import time
+import timeit
 
 sw_object = {}
 debug = False
@@ -20,9 +21,12 @@ def serial_read(serial_port="com22",debug=False):
         reading = reading.replace("b'","")
         reading = reading.replace("'","")
         if(reading in sw_object):
+            before = timeit.default_timer()
             if (debug):
                 print(reading)
             sw_object[reading].input_even()
+            if (debug):
+                print("time used "+str(timeit.default_timer()-before))
 
 def setting(debug = False):
     database = False
@@ -30,7 +34,7 @@ def setting(debug = False):
     if (input("Setup new Branch? (y or N)").lower() == 'y'):
         print("Setup new Branch database wait ... ")
         database = True
-    infile = open("C:/github/MyfirstSoftware/BackEnd/Real_function/setting.txt", encoding="utf8")
+    infile = open("C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/BackEnd/Real_function/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     counter_typee = {}
     for line in infile:
@@ -43,10 +47,9 @@ def setting(debug = False):
         if (data[0] == "branch"):
             Branch = str(data[1])
             if(database):
-                db.collection(Branch).document(u'Data').set({})
+                db.collection(Branch).document(u'Queue').set({})
                 db.collection(Branch).document(u'History').set({})
-                db.collection(Branch).document(u'LastQueue').set({})
-                db.collection(Branch).document(u'NextQueue').set({})
+                db.collection(Branch).document(u'Data').set({})
                 db.collection(Branch).document(u'QueuePush').set({})
                 db.collection(Branch).document(u'Time').set({})
 
@@ -54,8 +57,8 @@ def setting(debug = False):
             counter_types = data[2].split(",")
             counter_name_setup = data[1]
             if(database):
-                db.collection(Branch).document('LastQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "000"})
-                db.collection(Branch).document('NextQueue').update({counter_name_setup : counter_name_setup[-1:].upper() + "001"})
+                db.collection(Branch).document('Data').update({str("Last_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "000"})
+                db.collection(Branch).document('Data').update({str("Next_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "001"})
             for i in counter_types:
                 if(database):
                     db.collection(Branch).document(u'QueuePush').collection(u''+str(i)).document(u'frist').set({})

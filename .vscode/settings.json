@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\thans\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "python.pythonPath": "C:\\Users\\Xprize\\.conda\\envs\\all\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }

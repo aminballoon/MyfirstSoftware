@@ -43,7 +43,7 @@ plus_x = 710
 plus_y = 160
 myFont = Font(family=font[59], size=60)
 Font_head = Font(family=font[59], size=70)
-photo = PhotoImage(file = "C:/github/MyfirstSoftware/FrontEnd/Display/Untitled-1.gif")
+photo = PhotoImage(file = "C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/FrontEnd/Display/Untitled-1.gif")
 backgrand = Label(Window, image=photo)
 backgrand.pack()
 con = Label(Window, text = 'Queue', font=Font_head,background= color_gray,
