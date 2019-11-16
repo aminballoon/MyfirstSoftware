@@ -3,7 +3,6 @@
 
 import serial
 from env import *
-from ticket import ticket
 from counter import counter
 from UI import ui
 import time
@@ -33,7 +32,7 @@ def setting(debug = False):
     if (input("Setup new Branch? (y or N)").lower() == 'y'):
         print("Setup new Branch database wait ... ")
         database = True
-    infile = open("C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/Final_Solfware/Branch_backendsetting.txt", encoding="utf8")
+    infile = open("C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/Final_Solfware/Branch_backend/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     counter_typee = {}
     for line in infile:
@@ -49,7 +48,7 @@ def setting(debug = False):
                 db.collection(Branch).document(u'Queue').set({})
                 db.collection(Branch).document(u'History').set({})
                 db.collection(Branch).document(u'Data').set({})
-                db.collection(Branch).document(u'QueuePush').set({})
+                db.collection(Branch).document(u'QueuePush').collection(u'ticket').document(u'frist').set({})
                 db.collection(Branch).document(u'Time').set({})
 
         elif (data[0] == "countertype"):
@@ -59,13 +58,7 @@ def setting(debug = False):
                 db.collection(Branch).document('Data').update({str("Last_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "000"})
                 db.collection(Branch).document('Data').update({str("Next_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "001"})
             for i in counter_types:
-                if(database):
-                    db.collection(Branch).document(u'QueuePush').collection(u''+str(i)).document(u'frist').set({})
                 counter_typee[i] = data[1]
-        
-        elif (data[0] == "ticket"): 
-            t = ticket(name=data[2],ticket_type=data[2],sw_input=data[1],counter_type=counter_typee[data[2]],Branchinput = Branch)
-            sw_object[data[1]] = t
         
         elif (data[0] == "counter"):
             t = counter(name=data[3],counter_type= data[2] , sw_data= data[1],debug = debug,Branchinput = Branch)

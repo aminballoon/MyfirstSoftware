@@ -1,4 +1,5 @@
 class calculations:
+    Avg_data = {}
     def __init__(self,name,ticket_type="",counter_type="",before_queuein={}):
         self.ticket_type = ticket_type
         self.counter_type = counter_type 
@@ -13,17 +14,13 @@ class calculations:
                 buffer += self.before_queue[i]
             return buffer,self.before_queue
         return -1,-1
+    
+    def add_data(self,inputs = ""):
+        calculations.Avg_data[inputs]= 1000
 
 
 if __name__ == '__main__':
-    static_data = {"a":100,"b":100,"c":100,"d":100,"e":100,"f":100}
-    tt = calculations(name = "A000",ticket_type="ticket_a",counter_type="counter_a",before_queuein = static_data)
-    a,b = tt.on_update("a") 
-    print(static_data)
-    k = calculations(name = "A001",ticket_type="ticket_a",counter_type="counter_a",before_queuein = static_data)
-    print(k.before_queue)
-    a,b = tt.on_update("b")
-    print(k.before_queue)
-    a,b = k.on_update("b")
-    print(tt.before_queue)
-    print(k.before_queue)
+    calculations.add_data("A000")
+    calculations.add_data("A001")
+    calculations.add_data("A002")
+    print(calculations.Avg_data)

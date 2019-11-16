@@ -6,9 +6,10 @@ ticket T2 ticket_b
 ticket T3 ticket_c
 ticket T4 ticket_d
 counter C1 counter_a counter1
-counter C2 counter_b counter2
-counter C3 counter_a counter3
+counter C2 counter_a counter2
+counter C3 counter_b counter3
 counter C4 counter_b counter4
-counter C5 counter_b counter5
-counter C6 counter_b counter6
-counter C7 counter_b counter7
+avg_data counter_a 360
+avg_data counter_b 500
+avg_data counter_c 600
+avg_data counter_d 1800
