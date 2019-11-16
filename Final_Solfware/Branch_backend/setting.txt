@@ -1,0 +1,14 @@
+branch B
+countertype counter_a ticket_a
+countertype counter_b ticket_b,ticket_c,ticket_d
+ticket T1 ticket_a
+ticket T2 ticket_b
+ticket T3 ticket_c
+ticket T4 ticket_d
+counter C1 counter_a counter1
+counter C2 counter_b counter2
+counter C3 counter_a counter3
+counter C4 counter_b counter4
+counter C5 counter_b counter5
+counter C6 counter_b counter6
+counter C7 counter_b counter7
