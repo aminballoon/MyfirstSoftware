@@ -1,0 +1,7 @@
+exports.start_time = functions.firestore
+.document('B/QueuePush/ticket_a/{userID}').onCreate((snap, context) => {
+    var A = new Date();
+    return snap.ref.update({
+    Start_Time : A.getTime()
+    }, {merge: true});
+});
