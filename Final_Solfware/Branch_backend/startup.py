@@ -46,10 +46,10 @@ def setting(debug = False):
             Branch = str(data[1])
             if(database):
                 db.collection(Branch).document(u'Queue').set({})
-                db.collection(Branch).document(u'History').set({})
+                # db.collection(Branch).document(u'History').set({})
                 db.collection(Branch).document(u'Data').set({})
                 db.collection(Branch).document(u'QueuePush').collection(u'ticket').document(u'frist').set({})
-                db.collection(Branch).document(u'Time').set({})
+                # db.collection(Branch).document(u'Time').set({})
 
         elif (data[0] == "countertype"):
             counter_types = data[2].split(",")
@@ -58,6 +58,7 @@ def setting(debug = False):
                 db.collection(Branch).document('Data').update({str("Last_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "000"})
                 db.collection(Branch).document('Data').update({str("Next_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "001"})
             for i in counter_types:
+                db.collection(Branch).document('Data').update({str("Avg_")+str(i) : 100})
                 counter_typee[i] = data[1]
         
         elif (data[0] == "counter"):
