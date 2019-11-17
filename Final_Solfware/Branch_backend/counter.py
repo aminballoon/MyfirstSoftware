@@ -31,7 +31,8 @@ class counter:
             Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[data["Last_"+self.type]]).get().to_dict()
             Estimated_Time = time_now - int(Queue_Push["Queue_Time"])
             Wait_time = int(Queue_Push["Queue_Time"]) - int(Queue_Push["Start_Time"])
-            db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[data["Last_"+self.type]]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time , 'Stop_Time' : time_now})
+            # print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time_now)))
+            db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[data["Last_"+self.type]]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time })
             if (self.debug):
                 print(str(db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[data["Last_"+self.type]]).get().to_dict()))
 
