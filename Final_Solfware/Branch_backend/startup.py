@@ -58,7 +58,8 @@ def setting(debug = False):
                 db.collection(Branch).document('Data').update({str("Last_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "000"})
                 db.collection(Branch).document('Data').update({str("Next_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "001"})
             for i in counter_types:
-                db.collection(Branch).document('Data').update({str("Avg_")+str(i) : 100})
+                db.collection(Branch).document('Data').update({str("Avg_")+str(i) : 300}) #read form setting.txt
+                db.collection(Branch).document('Data').update({str("Count_")+str(i) : 0})
                 counter_typee[i] = data[1]
         
         elif (data[0] == "counter"):

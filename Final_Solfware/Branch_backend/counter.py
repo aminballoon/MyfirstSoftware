@@ -31,6 +31,7 @@ class counter:
             db.collection(self.Branch).document('Queue').update({data["Last_"+self.type]: firestore.DELETE_FIELD})
             Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[data["Last_"+self.type]]).get().to_dict()
             Estimated_Time = time_now - int(Queue_Push["Queue_Time"])
+            db.collection(self.Branch).document('Data').update({"Avg_ticket_" + str(Queue_Push["Type"].lower()): ((int(data["Avg_ticket_" + str(Queue_Push["Type"].lower())])*9)+Estimated_Time)/10 })
             Wait_time = int(Queue_Push["Queue_Time"]) - int(Queue_Push["Start_Time"])
             db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[data["Last_"+self.type]]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time ,'Stop_Time': time_now})
 
