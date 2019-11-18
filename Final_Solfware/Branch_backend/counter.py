@@ -40,14 +40,11 @@ class counter:
                     listin.append(data_queue[i][0])
                     for j in data["counter_"+str(i[0:1]).lower()]:
                         if Queue_Push["Type"] == j:
-                            print("data_queue["+str(i)+"]["+str(k)+"]-1 ------>"+str(data_queue[i][k]-1))
                             listin.append(data_queue[i][k]-1)
                         else:
-                            print("data_queue["+str(i)+"]["+str(k)+"] ------>"+str(data_queue[i][k]))
                             listin.append(data_queue[i][k])
                         k+=1
                     diccc[i]=listin
-                    print(diccc)
                     listin = []
             if(diccc != {}):
                 db.collection(self.Branch).document('Queue').update(diccc)

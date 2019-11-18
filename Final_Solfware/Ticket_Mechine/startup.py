@@ -12,6 +12,7 @@ Branch = ""
 
 def serial_read(serial_port="com22",debug=False):
     ser = serial.Serial(serial_port, 115200, timeout=0.001)
+    print("\n\n\n\n")
     while True:
         reading = str(ser.readline()) 
         reading = reading.replace("b'","")

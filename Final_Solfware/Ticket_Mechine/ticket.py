@@ -40,7 +40,7 @@ class ticket:
                 time_waitss += (Data_firebase["Count_"+ str(i)])* Data_firebase["Avg_"+ str(i)]
                 listin.append(Data_firebase["Count_"+ str(i)])
         db.collection(self.Branch).document("Queue").update({new_queue: listin})
-        print(str(new_queue) + " waiting for " + str(int(new_queue[1:]) - data) + " Queue --> Time " + str(time_waitss))
+        print(str(new_queue) + " is waiting for " + str(int(new_queue[1:]) - data) + " queue\nestimated time " + str(int(time_waitss//60)) +" minutes\n\n")
 
 
 

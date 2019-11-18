@@ -46,10 +46,8 @@ def setting(debug = False):
             Branch = str(data[1])
             if(database):
                 db.collection(Branch).document(u'Queue').set({})
-                # db.collection(Branch).document(u'History').set({})
                 db.collection(Branch).document(u'Data').set({})
                 db.collection(Branch).document(u'QueuePush').collection(u'ticket').document(u'frist').set({})
-                db.collection(Branch).document(u'Time').set({})
 
         elif (data[0] == "countertype"):
             counter_types = data[2].split(",")
