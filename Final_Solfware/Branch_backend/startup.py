@@ -1,5 +1,5 @@
 # https://firebase.google.com/docs/firestore/query-data/get-data     how to try eiei
- 
+
 
 import serial
 from env import *

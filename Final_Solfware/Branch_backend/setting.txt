@@ -1,4 +1,4 @@
-branch A
+branch B
 countertype counter_a ticket_a
 countertype counter_b ticket_b,ticket_c,ticket_d
 ticket T1 ticket_a

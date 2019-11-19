@@ -10,8 +10,10 @@ class counter:
         self.input = sw_data
         self.debug = debug
         self.Branch = Branchinput
+        self.Queue_now = "A000"
     def input_even(self):
         time_now = int(time.time())
+        stage = False
         if (self.debug):
             print("counter next button from : " + self.input)
         data = db.collection(self.Branch).document('Data').get().to_dict()
@@ -25,12 +27,13 @@ class counter:
                 ui((str(self.type[-1:]).upper()+str(buffer)),self.name[-1:])
                 db.collection(self.Branch).document("Data").update({"Last_"+self.type : (str(self.type[-1:]).upper()+str(buffer))})
                 db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[(str(self.type[-1:]).upper()+str(buffer))][0]).update({"Queue_Time": time_now})
+                stage = True
                 break
             i+=1
-        if(data["Last_"+self.type] in data_queue):
+        if(self.Queue_now in data_queue):
             listin = []
-            diccc = {}
-            Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[data["Last_"+self.type]][0]).get().to_dict()
+            diccc = {self.Queue_now: firestore.DELETE_FIELD}
+            Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[self.Queue_now][0]).get().to_dict()
             Estimated_Time = time_now - int(Queue_Push["Queue_Time"])
             db.collection(self.Branch).document('Data').update({"Avg_" + str(Queue_Push["Type"]): ((int(data["Avg_" + str(Queue_Push["Type"])])*9)+Estimated_Time)/10 ,"Count_"+str(Queue_Push["Type"]):data["Count_"+str(Queue_Push["Type"])]-1})
             Wait_time = int(Queue_Push["Queue_Time"]) - int(Queue_Push["Start_Time"])
@@ -39,8 +42,10 @@ class counter:
                     k=1
                     listin.append(data_queue[i][0])
                     for j in data["counter_"+str(i[0:1]).lower()]:
-                        if Queue_Push["Type"] == j:
+                        if Queue_Push["Type"] == j and  int(i[1:]) >= int(self.Queue_now[1:]):
                             listin.append(data_queue[i][k]-1)
+                        elif(int(i[1:]) <= int(self.Queue_now[1:])):
+                            listin.append(0)                        
                         else:
                             listin.append(data_queue[i][k])
                         k+=1
@@ -48,9 +53,10 @@ class counter:
                     listin = []
             if(diccc != {}):
                 db.collection(self.Branch).document('Queue').update(diccc)
-            db.collection(self.Branch).document('Queue').update({data["Last_"+self.type]: firestore.DELETE_FIELD})
-            db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[data["Last_"+self.type]][0]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time ,'Stop_Time': time_now})
-
+            db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[self.Queue_now][0]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time ,'Stop_Time': time_now})
+        if(stage):
+            self.Queue_now = (str(self.type[-1:]).upper()+str(buffer))
+            print(self.Queue_now)
 
 if __name__ == '__main__':
     t = counter(name="test",counter_type="counter_a",sw_data="C1",debug = False)
