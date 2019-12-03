@@ -19,7 +19,7 @@ class counter:
         self.input = sw_data
         self.debug = debug
         self.Branch = Branchinput
-        self.Queue_now = "A001"
+        self.Queue_now = "A000"
     def input_even(self):
         time_now = int(time.time())
         stage = False
@@ -28,7 +28,7 @@ class counter:
         data = db.collection(self.Branch).document('Data').get().to_dict()
         data_queue = db.collection(self.Branch).document('Queue').get().to_dict()
         i=1
-        while(int(data["Next_"+self.type][1:]) - int(data["Last_"+self.type][1:]) > 1):
+        while(int(data["Next_"+self.type][1:]) - int(data["Last_"+self.type][1:]) > 1):   #chack queue
             buffer = str(int((data["Last_"+self.type])[1:])+i)
             while(len(buffer)<3):
                 buffer = ("0" + buffer)
@@ -37,45 +37,57 @@ class counter:
                 db.collection(self.Branch).document("Data").update({"Last_"+self.type : (str(self.type[-1:]).upper()+str(buffer))})
                 db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[(str(self.type[-1:]).upper()+str(buffer))][0]).update({"Queue_Time": time_now})
                 stage = True
+                listin = []
+                diccc = {}
+                Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[str(self.type[-1:]).upper()+str(buffer)][0]).get().to_dict()
+                for i in data_queue:
+                    if (i[0:1] == Queue_Push["No"][0:1]):
+                        k=1
+                        listin.append(data_queue[i][0])
+                        for j in data["counter_"+str(i[0:1]).lower()]:
+                            if Queue_Push["Type"] == j and  int(i[1:]) >= int(self.Queue_now[1:]):
+                                if data_queue[i][k]-1 >= 0:
+                                    listin.append(data_queue[i][k]-1)
+                                else:
+                                    listin.append(data_queue[i][k])
+                            elif(int(i[1:]) <= int(self.Queue_now[1:])):
+                                listin.append(0)                        
+                            else:
+                                listin.append(data_queue[i][k])
+                            k+=1
+                        diccc[i]=listin
+                        listin = []
+                if(diccc != {}):
+                    db.collection(self.Branch).document('Queue').update(diccc)
                 break
             i+=1
         if(self.Queue_now in data_queue):
-            listin = []
             diccc = {self.Queue_now: firestore.DELETE_FIELD}
             Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[self.Queue_now][0]).get().to_dict()
             Estimated_Time = time_now - int(Queue_Push["Queue_Time"])
             db.collection(self.Branch).document('Data').update({"Avg_" + str(Queue_Push["Type"]): ((int(data["Avg_" + str(Queue_Push["Type"])])*9)+Estimated_Time)/10 ,"Count_"+str(Queue_Push["Type"]):data["Count_"+str(Queue_Push["Type"])]-1})
             Wait_time = int(Queue_Push["Queue_Time"]) - int(Queue_Push["Start_Time"])
-            for i in data_queue:
-                if (i[0:1] == Queue_Push["No"][0:1] and i != Queue_Push["No"]):
-                    k=1
-                    listin.append(data_queue[i][0])
-                    for j in data["counter_"+str(i[0:1]).lower()]:
-                        if Queue_Push["Type"] == j and  int(i[1:]) >= int(self.Queue_now[1:]):
-                            listin.append(data_queue[i][k]-1)
-                        elif(int(i[1:]) <= int(self.Queue_now[1:])):
-                            listin.append(0)                        
-                        else:
-                            listin.append(data_queue[i][k])
-                        k+=1
-                    diccc[i]=listin
-                    listin = []
-            if(diccc != {}):
-                db.collection(self.Branch).document('Queue').update(diccc)
+            db.collection(self.Branch).document('Queue').update(diccc)
             db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[self.Queue_now][0]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time ,'Stop_Time': time_now})
         if(stage):
             self.Queue_now = (str(self.type[-1:]).upper()+str(buffer))
             print(self.Queue_now)
+
+
     def input_even2(self):
         time_now = int(time.time())
+        if (self.debug):
+            print("counter next button from : " + self.input)
         data = db.collection(self.Branch).document('Data').get().to_dict()
         data_queue = db.collection(self.Branch).document('Queue').get().to_dict()
-        if self.Queue_now in data_queue:
+        if(self.Queue_now in data_queue):
+            diccc = {self.Queue_now: firestore.DELETE_FIELD}
             Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[self.Queue_now][0]).get().to_dict()
-            transaction = db.transaction()
-            docRef = db.collection(self.Branch).document("Data")
-            new_queue,Data_firebase = update_in_transaction(transaction,docRef,counter=self.type,ticket=Queue_Push["Type"])
-        
+            Estimated_Time = time_now - int(Queue_Push["Queue_Time"])
+            db.collection(self.Branch).document('Data').update({"Avg_" + str(Queue_Push["Type"]): ((int(data["Avg_" + str(Queue_Push["Type"])])*9)+Estimated_Time)/10 ,"Count_"+str(Queue_Push["Type"]):data["Count_"+str(Queue_Push["Type"])]-1})
+            Wait_time = int(Queue_Push["Queue_Time"]) - int(Queue_Push["Start_Time"])
+            db.collection(self.Branch).document('Queue').update(diccc)
+            db.collection(self.Branch).document('QueuePush').collection("ticket").document(data_queue[self.Queue_now][0]).update({'Status': 1, 'Estimated_Time': Estimated_Time, 'Wait_Time': Wait_time ,'Stop_Time': time_now})
 
 if __name__ == '__main__':
     t = counter(name="test",counter_type="counter_a",sw_data="C1",debug = False)

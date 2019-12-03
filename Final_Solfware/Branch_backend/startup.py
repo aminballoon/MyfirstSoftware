@@ -25,6 +25,13 @@ def serial_read(serial_port="com22",debug=False):
             sw_object[reading].input_even()
             if (debug):
                 print("time used "+str(timeit.default_timer()-before))
+        elif(reading[0:-1] in sw_object):
+            before = timeit.default_timer()
+            if (debug):
+                print(reading)
+            sw_object[reading[0:-1]].input_even2()
+            if (debug):
+                print("time used "+str(timeit.default_timer()-before))
 
 def setting(debug = False):
     database = False
@@ -32,7 +39,7 @@ def setting(debug = False):
     if (input("Setup new Branch? (y or N)").lower() == 'y'):
         print("Setup new Branch database wait ... ")
         database = True
-    infile = open("C:\github\MyfirstSoftware\Final_Solfware\Branch_backend\setting.txt", encoding="utf8")
+    infile = open("C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/Final_Solfware/Branch_backend/setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     counter_typee = {}
     for line in infile:
@@ -57,14 +64,16 @@ def setting(debug = False):
                 db.collection(Branch).document('Data').update({str("Next_")+str(counter_name_setup) : counter_name_setup[-1:].upper() + "001"})
                 db.collection(Branch).document(u'Data').update({counter_name_setup:counter_types})
             for i in counter_types:
-                if(database):
-                    db.collection(Branch).document('Data').update({str("Avg_")+str(i) : 300}) #read form setting.txt
-                    db.collection(Branch).document('Data').update({str("Count_")+str(i) : 0})
                 counter_typee[i] = data[1]
         
         elif (data[0] == "counter"):
             t = counter(name=data[3],counter_type= data[2] , sw_data= data[1],debug = debug,Branchinput = Branch)
             sw_object[data[1]] = t
+
+        elif(data[0] == "avg_data"):
+            if(database):
+                db.collection(Branch).document('Data').update({str("Avg_")+str(data[1]) : int(data[2])}) #read form setting.txt
+                db.collection(Branch).document('Data').update({str("Count_")+str(data[1]) : 0})
 
     if (database):
         db.collection(Branch).document(u'Data').update(counter_typee)

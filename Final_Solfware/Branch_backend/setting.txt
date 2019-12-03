@@ -9,7 +9,7 @@ counter C1 counter_a counter1
 counter C2 counter_a counter2
 counter C3 counter_b counter3
 counter C4 counter_b counter4
-avg_data counter_a 360
-avg_data counter_b 500
-avg_data counter_c 600
-avg_data counter_d 1800
+avg_data ticket_a 360
+avg_data ticket_b 500
+avg_data ticket_c 600
+avg_data ticket_d 1800
