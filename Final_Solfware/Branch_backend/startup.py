@@ -32,7 +32,7 @@ def setting(debug = False):
     if (input("Setup new Branch? (y or N)").lower() == 'y'):
         print("Setup new Branch database wait ... ")
         database = True
-    infile = open("C:/Users/Xprize/Documents/solfdev/MyfirstSoftware/Final_Solfware/Branch_backend/setting.txt", encoding="utf8")
+    infile = open("C:\github\MyfirstSoftware\Final_Solfware\Branch_backend\setting.txt", encoding="utf8")
     # infile = open("setting.txt", encoding="utf8")
     counter_typee = {}
     for line in infile:

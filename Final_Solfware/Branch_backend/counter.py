@@ -1,16 +1,25 @@
 import timeit
 from UI import ui
 from env import *
-import time 
+import time
+
+@firestore.transactional
+def update_in_transaction(transaction, ref,counter,ticket):
+    snapshot = ref.get(transaction=transaction).to_dict()
+    new_queue = (snapshot)["Last_" + str(counter)]
+    buffer = counter[-1].upper() + "0" * (3 - len(str(int(new_queue[1:])))) + str(int(new_queue[1:])+1)
+    transaction.update(ref, {"Last_" + str(counter): buffer  , "Count_"+ str(ticket) : int(snapshot["Count_"+ str(ticket)])-1})
+    buffer = counter[-1].upper() + "0" * (3 - len(str(int(new_queue[1:])))) + str(int(new_queue[1:]))
+    return buffer,snapshot
 
 class counter:
-    def __init__(self,name = "",counter_type = "" ,sw_data = "",debug = False ,Branchinput = 'BangMod'):
+    def __init__(self,name = "",counter_type = "" ,sw_data = "",debug = False ,Branchinput = 'A'):
         self.name = name
         self.type = counter_type
         self.input = sw_data
         self.debug = debug
         self.Branch = Branchinput
-        self.Queue_now = "A000"
+        self.Queue_now = "A001"
     def input_even(self):
         time_now = int(time.time())
         stage = False
@@ -57,7 +66,17 @@ class counter:
         if(stage):
             self.Queue_now = (str(self.type[-1:]).upper()+str(buffer))
             print(self.Queue_now)
+    def input_even2(self):
+        time_now = int(time.time())
+        data = db.collection(self.Branch).document('Data').get().to_dict()
+        data_queue = db.collection(self.Branch).document('Queue').get().to_dict()
+        if self.Queue_now in data_queue:
+            Queue_Push = db.collection(self.Branch).document("QueuePush").collection("ticket").document(data_queue[self.Queue_now][0]).get().to_dict()
+            transaction = db.transaction()
+            docRef = db.collection(self.Branch).document("Data")
+            new_queue,Data_firebase = update_in_transaction(transaction,docRef,counter=self.type,ticket=Queue_Push["Type"])
+        
 
 if __name__ == '__main__':
     t = counter(name="test",counter_type="counter_a",sw_data="C1",debug = False)
-    t.input_even()
+    t.input_even2()
